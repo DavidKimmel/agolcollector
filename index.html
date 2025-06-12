@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
  <html>
   <head>
@@ -59,7 +58,15 @@
         view.ui.add(locateBtn, {
           position: "top-left"
         });
+        
+        const searchWidget = new Search({
+          view: view,
+          allPlaceholder: "Find address or place"
+        });
 
+        view.ui.add(searchWidget, {
+          position: "top-right"
+        });
 
       });
     </script>
