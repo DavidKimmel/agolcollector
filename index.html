@@ -1,12 +1,13 @@
 <!DOCTYPE html>
  <html>
   <head>
-    
     <meta charset="utf-8" />
+    <!-- Ensure proper mobile scaling -->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
   
     <title>Data Collector for AGOL</title>
     <style>
+      /* make map fill the page */
       html,
       body,
       #viewDiv {
@@ -15,6 +16,7 @@
         height: 100%;
         width: 100%;
       }
+      /* style for the "Add Record" button */
       .addRecordBtn {
         position: absolute;
         z-index: 10;
@@ -34,7 +36,7 @@
       }
 
     </style>
-
+    <!-- ArcGIS API stylesheet & script -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.26/"></script>
 
@@ -54,56 +56,53 @@
         "esri/widgets/Legend"
       ], (esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search,
           Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) => {
-
+        
+        ///API KEY
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEwEJiPsJAv6XK5APCcuFpZEmTCdTdSU9XMQXYBgfL9c5UnZrY4R2UdHgVrW8LfqDFKnjefPQr9XO0pMlE2S9osFC4vlxQEcDC2L-rbRhvnh3cGFmfknrnTY3XSIHKqUu1aHDnbMm61c0aME06Eg9u_NwfzhPyWlPsZlxkyOWLAtootixnskdcZY0pddnIjDLJ19HPMO7YoJRFfo-wFMnrXD59hI_LVwr_BLfWo0dbk7AT1_nGwi5c7J";
-
+        
+        //BASE MAP SETUP
         const map = new Map({
           basemap: "satellite",
         });
-
         const view = new MapView({
           container: "viewDiv",
           map: map,
           center: [-123.0365, 44.5646],  
           zoom: 5
         });
-
+        //LOCATION BUTTON
         const locateBtn = new Locate({
           view: view
         });
 
-        // Add the locate widget to the top left corner of the view
+        // ADD LOCATION BUTTON TOP-LEFT
         view.ui.add(locateBtn, {
           position: "top-left"
         });
         
+        //SETUP SEARCH WIDGET W/ CUSTOMIZATIONS
         const searchWidget = new Search({
           view: view,
           allPlaceholder: "Find address or place",
-          suggestionsEnabled: true,         // enable the suggest dropdown :contentReference[oaicite:0]{index=0}
-          minSuggestCharacters: 3,          // don’t show anything until 3 characters typed :contentReference[oaicite:1]{index=1}
+          suggestionsEnabled: true,         // enable the suggest dropdown 
+          minSuggestCharacters: 3,          // don’t show anything until 3 characters typed 
           maxSuggestions: 8, 
         });
 
+        //ADD SEARCH WIDGET
         view.ui.add(searchWidget, {
           position: "bottom-right"
         });
 
-        // Create featurelayer from feature service 
+        // CREATE FEATURE LAYER 
         const layer = new FeatureLayer({ 
           // URL to the service 
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_55a4625773fc467eb34eabd80e05b542_results/FeatureServer"
         });
+        // ADD SERVICE LAYER (SURVEY)
         map.add(layer);
-
-
       });
     </script>
-
-        
-
-    </script>
-
   </head>
   <body>
     <a href="https://survey123.arcgis.com/share/55a1dcb95cfe435a8b16cebfd83afef4"target="_blank" class="addRecordBtn">Add Record</a>
