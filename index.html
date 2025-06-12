@@ -35,32 +35,35 @@
         "esri/layers/FeatureLayer",
         "esri/widgets/Editor",
         "esri/widgets/Legend"
-      ],(
-        esriConfig,
-        Map,
-        MapView,
-        BasemapGallery,
-        Expand,
-        Locate,
-        Search,
-        Graphic,
-        GraphicsLayer,
-        FeatureLayer,
-        Editor,
-        Legend                          
-      ) => {
-      });
+      ], (esriConfig, Map, MapView, BasemapGallery, Expand, Locate, Search,
+          Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) => {
 
-      esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEwEJiPsJAv6XK5APCcuFpZEmTCdTdSU9XMQXYBgfL9c5UnZrY4R2UdHgVrW8LfqDFKnjefPQr9XO0pMlE2S9osFC4vlxQEcDC2L-rbRhvnh3cGFmfknrnTY3XSIHKqUu1aHDnbMm61c0aME06Eg9u_NwfzhPyWlPsZlxkyOWLAtootixnskdcZY0pddnIjDLJ19HPMO7YoJRFfo-wFMnrXD59hI_LVwr_BLfWo0dbk7AT1_nGwi5c7J";
-      
-      const map = new Map({
-        basemap: "satellite"
+        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurEwEJiPsJAv6XK5APCcuFpZEmTCdTdSU9XMQXYBgfL9c5UnZrY4R2UdHgVrW8LfqDFKnjefPQr9XO0pMlE2S9osFC4vlxQEcDC2L-rbRhvnh3cGFmfknrnTY3XSIHKqUu1aHDnbMm61c0aME06Eg9u_NwfzhPyWlPsZlxkyOWLAtootixnskdcZY0pddnIjDLJ19HPMO7YoJRFfo-wFMnrXD59hI_LVwr_BLfWo0dbk7AT1_nGwi5c7J";
+
+        const map = new Map({
+          basemap: "satellite",
         });
-      
+
         const view = new MapView({
-        container: "viewDiv", // Reference to the DOM node that will contain the view
-        map: map // References the map object
+          container: "viewDiv",
+          map: map,
+          center: [-77.0365, 44.5646],  
+          zoom: 11 
         });
+
+        const locateBtn = new Locate({
+          view: view
+        });
+
+        // Add the locate widget to the top left corner of the view
+        view.ui.add(locateBtn, {
+          position: "top-left"
+        });
+
+
+      });
+    </script>
+
         
 
     </script>
@@ -70,3 +73,6 @@
    <div id="viewDiv"></div>
   </body>
 </html>
+
+
+
