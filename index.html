@@ -15,6 +15,24 @@
         height: 100%;
         width: 100%;
       }
+      .addRecordBtn {
+        position: absolute;
+        z-index: 10;
+        top: 10px;
+        right: 10px;
+        background-color: #0079c1;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .addRecordBtn:hover {
+        background-color: #005a87;
+      }
+
     </style>
 
     <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
@@ -46,8 +64,8 @@
         const view = new MapView({
           container: "viewDiv",
           map: map,
-          center: [-77.0365, 44.5646],  
-          zoom: 11 
+          center: [-123.0365, 44.5646],  
+          zoom: 5
         });
 
         const locateBtn = new Locate({
@@ -61,12 +79,23 @@
         
         const searchWidget = new Search({
           view: view,
-          allPlaceholder: "Find address or place"
+          allPlaceholder: "Find address or place",
+          suggestionsEnabled: true,         // enable the suggest dropdown :contentReference[oaicite:0]{index=0}
+          minSuggestCharacters: 3,          // don’t show anything until 3 characters typed :contentReference[oaicite:1]{index=1}
+          maxSuggestions: 8, 
         });
 
         view.ui.add(searchWidget, {
-          position: "top-right"
+          position: "bottom-right"
         });
+
+        // Create featurelayer from feature service 
+        const layer = new FeatureLayer({ 
+          // URL to the service 
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/survey123_55a4625773fc467eb34eabd80e05b542_results/FeatureServer"
+        });
+        map.add(layer);
+
 
       });
     </script>
@@ -77,7 +106,8 @@
 
   </head>
   <body>
-   <div id="viewDiv"></div>
+    <a href="https://survey123.arcgis.com/share/55a1dcb95cfe435a8b16cebfd83afef4"target="_blank" class="addRecordBtn">Add Record</a>
+    <div id="viewDiv"></div>
   </body>
 </html>
 
